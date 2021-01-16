@@ -1,54 +1,28 @@
-<template web>
+<template>
   <div class="w-page">
-    <nav>
-      <ul class="w-navbar">
-        <li class="w-title" :text="navbarTitle">{{ navbarTitle }}</li>
-      </ul>
-    </nav>
-    <div class="w-container">
-      <router-link tag="button" class="w-button" id="homeButton" to="/"
-        >Home</router-link
-      >
-      <!-- alternate way to route manually and use the same method as native -->
-      <button class="w-button" id="aboutButton" v-on:click="goToAboutPage">
-        About
-      </button>
+    <v-header />
+    <main class="main-content">
       <router-view />
-    </div>
+    </main>
+    <v-footer />
   </div>
 </template>
-<template native>
-  <Page>
-    <ActionBar :title="navbarTitle" />
-    <GridLayout rows="auto, auto">
-      <Button text="Home" @tap="goToHomePage" row="0" />
-      <Button text="About" @tap="goToAboutPage" row="1" />
-    </GridLayout>
-  </Page>
-</template>
 <script>
-const { VUE_APP_MODE } = process.env;
+import VHeader from "./components/VHeader.vue";
+import VFooter from "./components/VFooter.vue";
 
 export default {
-  data() {
-    return {
-      navbarTitle: `App.vue`
-    };
-  },
-  methods: {
-    goToHomePage() {
-      this.goTo("home");
-    },
-    goToAboutPage() {
-      this.goTo("about");
-    },
-    goTo(route) {
-      VUE_APP_MODE === "web"
-        ? this.$router.push(route)
-        : this.$navigator.navigate(route);
-    }
+  components: {
+    VHeader,
+    VFooter
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+</style>
